@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='nav.css')}}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding-top: 90px;
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 5px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: -20px;
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        h3 {
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .search {
+            width: 90%;
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: white;
+            padding: 24px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-container {
+            width: 100%;
+            display: flex;
+            background: white;
+            border-radius: 1rem;
+            background: linear-gradient(45deg, #c5c5c5 0%, #ffffff 100%);
+            padding: 0.3rem;
+            gap: 0.3rem;
+        }
+
+        .input-container input {
+            border-radius: 0.75rem 0 0 0.75rem;
+            background: #e8e8e8;
+            width: 100%;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.95rem;
+            border: none;
+            color: #333;
+            height: 25px;
+        }
+
+        .input-container input:focus {
+            outline: none;
+            box-shadow: inset 13px 13px 10px #BFF0FA, inset -13px -13px 10px #f4f4f4;
+        }
+
+        .input-container button {
+            border-radius: 0 0.75rem 0.75rem 0;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: white;
+            border: none;
+            cursor: pointer;
+            height: 38px;
+        }
+
+        .input-container button:hover {
+            background: linear-gradient(135deg, #4fb6ff, #28f8ff);
+        }
+
+
+        table a {
+            padding-bottom: 0px;
+            margin-right: 10px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            border-bottom: 1px solid #00f2fe;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            color: white;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        table tr:first-child {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .reservation-data h1 {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 800;
+            text-align: center;
+            margin-top: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="nav">
+        <span style="margin-left: -80px;">Wellcome {{userid}}</span>
+        <a href="{{url_for('user_bp.user_home',userid=userid)}}">Home</a>
+        <a href="{{url_for('usersummary_bp.usersummary',userid=userid)}}">Summary</a>
+        <a href="{{url_for('userprofile_bp.userprofile',userid=userid)}}">Edit Profile</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <div class="search">
+        <form method="post">
+            <h1>Search Parking Lot by</h1>
+            <h2>Pincode/Location</h2>
+            <div class="input-container">
+                <input name="search" placeholder="Enter pincode or location..." type="text">
+                <button type="submit" class="button">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <table>
+        {% if sdata %}
+        <tr>
+            <th>LOT ID</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Action</th>
+        </tr>
+
+
+        {% for lot in sdata %}
+        <tr>
+            <td>{{ lot.lot_id }}</td>
+            <td>{{ lot.prime_location_name }}</td>
+            <td>{{ lot.address }}</td>
+            <td>{{ lot.pin_code }}</td>
+            <td>{{ lot.price }}</td>
+            {% if lot.available %}
+            <td>Available</td>
+            <td><a href="{{url_for('userbooking_bp.userspotslect',userid=userid,lotid=lot.lot_id)}}"
+                    style="color: green;">Book</a></td>
+            {% else %}
+            <td>Booked OUT</td>
+            <td><a href="" style="color: red;">Not Available</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% elif k==1 %}
+        <h3>No Result</h3>
+        {% endif %}
+    </table>
+    <div class="reservation-data">
+        <h1>Recent Parking History</h1>
+        {%if parked or hist%}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Location</th>
+                <th>Vehicle No.</th>
+                <th>Entry Date</th>
+                <th>Entry Time</th>
+                <th>Exit Date</th>
+                <th>Exit Time</th>
+                <th>Action</th>
+            </tr>
+            {% for i in range(parked|length) %}
+            <tr>
+                <td>{{ parked[i].res_id }}</td>
+                <td>{{ parkeda[i] }}</td>
+                <td>{{ parked[i].vehicle_no }}</td>
+                <td>{{ parked[i].in_date }}</td>
+                <td>{{ parked[i].in_time }}</td>
+                <td>{{ parked[i].out_date if parked[i].out_date else "N/A" }}</td>
+                <td>{{ parked[i].out_time if parked[i].out_time else "N/A" }}</td>
+                <td><a href="{{url_for('userbooking_bp.userrelease',userid=userid,resid=parked[i].res_id)}}">Release</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if hist %}
+            <tr>
+                <td>{{ hist.res_id }}</td>
+                <td>{{ hista }}</td>
+                <td>{{ hist.vehicle_no }}</td>
+                <td>{{ hist.in_date }}</td>
+                <td>{{ hist.in_time.strftime('%H:%M') }}</td>
+                <td>{{ hist.out_date }}</td>
+                <td>{{ hist.out_time.strftime('%H:%M') }}</td>
+                <td>Parked Out</td>
+            </tr>
+            {% endif %}
+        </table>
+        {%else%}
+        <h4>No Bookings</h4>
+        {%endif%}
+    </div>
+</body>
+
+</html>

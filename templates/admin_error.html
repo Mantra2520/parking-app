@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error | Smart Park</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .error-box {
+            background-color: white;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .del{
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px auto;
+            background: linear-gradient(135deg, #ff3b3f, #c2392f);
+            mask: url("{{ url_for('static', filename='car-parking.png') }}") center/contain no-repeat;
+        }
+
+        .lotid{
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px auto;
+            background: linear-gradient(135deg, #ff3b3f, #c2392f);
+            mask: url("{{ url_for('static', filename='warning.png') }}") center/contain no-repeat;
+        }
+
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .message {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        a {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+            transition: 0.2s ease-in-out;
+        }
+
+        a:hover {
+            background: linear-gradient(135deg, #4fb6ff, #28f8ff);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="error-box">
+        {% if err == "del" %}
+        <div class="error-img del"></div>
+        <h1>Cannot delete parking lot</h1>
+        <div class="message">There is a reservation in this lot, so it cannot be deleted.</div>
+        {% elif err == "lotid" %}
+        <div class="error-img lotid"></div>
+        <h1>Lot creation failed</h1>
+        <div class="message">A parking lot with this ID already exists.</div>
+        {% endif %}
+        <a href="{{ url_for('admin_bp.admin_home') }}">Go Back</a>
+    </div>
+</body>
+
+</html>

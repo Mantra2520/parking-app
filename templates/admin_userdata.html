@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='nav.css')}}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            margin: 0;
+            padding-top: 60px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            color: #2c3e50;
+            margin-top: 30px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        table a {
+            padding-bottom: 0px;
+            margin-right: 10px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            text-decoration: none;
+        }
+
+        table a:hover {
+            border-bottom: 1px solid #00f2fe;
+        }
+
+        table {
+            width: 90%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        table th,
+        table td {
+            padding: 12px 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            /* background: #00f2fe; */
+            /* background-color: #2c3e50;  */
+            color: white;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        table tr:first-child{
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h2>Registered Users</h2>
+    <Table>
+        <tr>
+            <th>Sr.No.</th>
+            <th>Full Name</th>
+            <th>User ID</th>
+            <th>E-mail ID</th>
+            <th>Address</th>
+            <th>pincode</th>
+            <th>Total reservation</th>
+            <th>Action</th>
+        </tr>
+        {%for user in users %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{user.fullname}}</td>
+            <td>{{user.userid}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.Address}}</td>
+            <td>{{user.pincode}}</td>
+            <td>{{res[user.userid]}}</td>
+            <td><a href="{{ url_for('admin_userdata_bp.user_reservations', userid=user.userid) }}">View Reservations</a></td>
+        </tr>
+        {%endfor%}
+    </Table>
+</body>
+
+</html>

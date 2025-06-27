@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f2f2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 800;
+            text-align: center;
+            color: #2c3e50;
+            margin: 40px auto 30px auto;
+            letter-spacing: 1px;
+        }
+
+        form {
+            width: 90%;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 30px 28px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input {
+            border: solid 1.5px #9e9e9e;
+            border-radius: 10px;
+            background: none;
+            padding: 1rem;
+            font-size: 1rem;
+            color: black;
+            transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .user-label {
+            position: absolute;
+            left: 15px;
+            color: black;
+            pointer-events: none;
+            transform: translateY(1rem);
+            transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .input:focus,
+        input:valid {
+            outline: none;
+            border: 1.5px solid #4facfe;
+        }
+
+        .input:focus~label,
+        input:valid~label {
+            transform: translateY(-50%) scale(0.8);
+            background-color: #ffffff;
+            padding: 0 .2em;
+            color: black;
+        }
+
+        .input:not(:placeholder-shown)~.user-label {
+            transform: translateY(-50%) scale(0.8);
+            background-color: #ffffff;
+            padding: 0 .2em;
+            color: black;
+        }
+
+        input[type="submit"] {
+            margin: 10px 200px 0 200px;
+            padding: 12px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: linear-gradient(135deg, #4fb6ff, #28f8ff);
+            transform: scale(1.03);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[disabled] {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Release Your vehicle</h1>
+    <form action="/user/release/{{res.user_id}}/{{res.res_id}}" method="post">
+        <div class="input-group">
+            <input type="text" name="resid" value="{{res.res_id}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Reservation ID</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="spotid" value="{{res.spot_id}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Spot ID</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="userid" value="{{res.user_id}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">User ID</label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" name="vno" value="{{res.vehicle_no}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Vehicle No.</label>
+        </div>
+
+        <div class="input-group">
+            <input type="date" name="date" value="{{res.in_date}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Entry Date</label>
+        </div>
+
+        <div class="input-group">
+            <input type="time" name="intime" value="{{res.in_time}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Entry time (hh:mm)</label>
+        </div>
+
+        <div class="input-group">
+            <input type="date" name="out_date" value="{{res.date}}" placeholder=" " autocomplete="off" class="input">
+            <label class="user-label">Releasing Date</label>
+        </div>
+
+        <div class="input-group">
+            <input type="time" name="outtime" required placeholder=" " autocomplete="off" class="input">
+            <label class="user-label">Releasing time (hh:mm)</label>
+        </div>
+
+        <div class="input-group">
+            <input type="number" name="cost" value="{{res.cost_unit_time}}" disabled placeholder=" " autocomplete="off"
+                class="input">
+            <label class="user-label">Price (/hour)</label>
+        </div>
+
+        <div>
+            <input type="submit" value="Confirm">
+        </div>
+
+    </form>
+</body>
+{% if error %}
+<script>
+    alert("{{ error }}");
+</script>
+{% endif %}
+</html>
