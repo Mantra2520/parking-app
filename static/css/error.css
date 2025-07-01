@@ -1,0 +1,79 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f2f2f2;
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.error-box {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+.error-img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px auto;
+    background: linear-gradient(135deg, #ff3b3f, #c2392f);
+    -webkit-mask: center/contain no-repeat;
+    mask:  center/contain no-repeat;
+}
+
+.del {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px auto;
+    background: linear-gradient(135deg, #ff3b3f, #c2392f);
+}
+
+.lotid {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 20px auto;
+    background: linear-gradient(135deg, #ff3b3f, #c2392f);
+}
+
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.message {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+a {
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+    transition: 0.2s ease-in-out;
+}
+
+a:hover {
+    background: linear-gradient(135deg, #4fb6ff, #28f8ff);
+    transform: scale(1.02);
+}
