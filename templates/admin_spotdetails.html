@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot Details</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_spotdetails.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1>Parking Spot #{{spot.spot_id}}</h1>
+    <table>
+        <tr>
+            <th>Spot ID</th>
+            <th>Lot ID</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>{{ spot.spot_id }}</td>
+            <td>{{ spot.lot_id }}</td>
+            <td>{{ "Available" if spot.status == "A" else "Occupied" }}</td>
+        </tr>
+    </table>
+    <h2>Reservation Details</h2>
+    <table>
+        <tr>
+            <th>Reservation ID</th>
+            <th>User ID</th>
+            <th>Spot ID</th>
+            <th>Vehicle No</th>
+            <th>Entry Date</th>
+            <th>In Time</th>
+            <th>Cost per Hour</th>
+        </tr>
+        <tr>
+            <td>{{ res.res_id }}</td>
+            <td>{{ res.user_id }}</td>
+            <td>{{ res.spot_id }}</td>
+            <td>{{ res.vehicle_no }}</td>
+            <td>{{ res.in_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ res.in_time.strftime('%H:%M') }}</td>
+            <td>{{ res.cost_unit_time }}</td>
+        </tr>
+    </table>
+    <a class="back" href="{{url_for('admin_bp.lot_details',lotid=lot.lot_id)}}">Back</a>
+</body>
+
+</html>

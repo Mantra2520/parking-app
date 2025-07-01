@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summary</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span style="margin-left: -80px;">Wellcome {{userid}}</span>
+        <a href="{{url_for('user_bp.user_home',userid=userid)}}">Home</a>
+        <a href="{{url_for('usersummary_bp.usersummary',userid=userid)}}">Summary</a>
+        <a href="{{url_for('userprofile_bp.userprofile',userid=userid)}}">Edit Profile</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1 class="above">Summary</h1>
+    <div class="summary">
+        <div class="col">
+            <div>No. of bookings: {{ tres }}</div>
+            <div>Total parked time: {{ tt }}hr</div>
+            <div>Total money spent: ₹{{ tm }}</div>
+        </div>
+        <div class="divider"></div>
+        <div class="col">
+            <div>Most used Lot: {{ most_used_lot }}</div>
+            <div>Avg. money spent: ₹{{ "%.2f"|format(tm / tres if tres else 0) }}</div>
+            <div>Avg. time spent: {{ tt // tres if tres else 0 }}hr</div>
+        </div>
+    </div>
+    <h1 class="above">Parked vehicle</h1>
+    {%if parked%}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Vehicle No.</th>
+            <th>Entry Date</th>
+            <th>Entry Time</th>
+            <th>Action</th>
+        </tr>
+        {% for i in range(parked|length) %} <tr>
+            <td>{{ parked[i].res_id }}</td>
+            <td>{{ parkeda[i] }}</td>
+            <td>{{ parked[i].vehicle_no }}</td>
+            <td>{{ parked[i].in_date }}</td>
+            <td>{{ parked[i].in_time }}</td>
+            <td><a class="Release" href="{{url_for('userbooking_bp.userrelease',userid=userid,resid=parked[i].res_id)}}">Release</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {%else%}
+    <h4>No vehicle Parked Currently</h4>
+    {%endif%}
+    <h1 class="above">Last 10 Resarvations</h1>
+    {%if hist%}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Location</th>
+            <th>Vehicle No.</th>
+            <th>Entry Date</th>
+            <th>Entry Time</th>
+            <th>Exit Date</th>
+            <th>Exit Time</th>
+            <th>Action</th>
+        </tr>
+        {% for i in range(hist|length if hist|length < 10 else 10) %} <tr>
+            <td>{{ hist[i].res_id }}</td>
+            <td>{{ hista[i] }}</td>
+            <td>{{ hist[i].vehicle_no }}</td>
+            <td>{{ hist[i].in_time }}</td>
+            <td>{{ hist[i].in_date }}</td>
+            <td>{{ hist[i].out_date }}</td>
+            <td>{{ hist[i].out_time}}</td>
+            {%if spotid[hist[i].res_id] != "0"%}
+            <td><a class="Available"href="{{url_for('userbooking_bp.userbooking',userid=userid,lotid=lotid[i],spotid=spotid[hist[i].res_id])}}">BookAgain</a></td>
+            {%else%}
+            <td><a class="Booked" href="">Lot Full</a></td>
+            {%endif%}
+
+            </tr>
+            {% endfor %}
+    </table>
+    {%else%}
+    <h4>No Parking History</h4>
+    {%endif%}
+    </div>
+</body>
+
+</html>

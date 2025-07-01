@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span style="margin-left: -80px;">Wellcome {{ud.userid}}</span>
+        <a href="{{url_for('user_bp.user_home',userid=ud.userid)}}">Home</a>
+        <a href="{{url_for('usersummary_bp.usersummary',userid=ud.userid)}}">Summary</a>
+        <a href="{{url_for('userprofile_bp.userprofile',userid=ud.userid)}}">Edit Profile</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1>Edit Profile</h1>
+    <div class="form">
+        <form action="/user/edit_profile/{{ud.userid}}" method="post">
+            <div class="input-group">
+                <input required type="text" name="userid" value="{{ud.userid}}" placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">User ID</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" name="fullname" value="{{ud.fullname}}" placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Fullname</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" name="email" value="{{ud.email}}" placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Email</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" name="address" value="{{ud.Address}}" placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Address</label>
+            </div>
+
+            <div class="input-group">
+                <input required type="text" name="pincode" value="{{ud.pincode}}" placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Pincode</label>
+            </div>
+
+            <div>
+                <input type="submit" value="Update">
+            </div>
+        </form>
+    </div>
+    {% if error %}
+    <script>
+        alert("{{ error }}");
+    </script>
+    {% endif %}
+</body>
+
+</html>

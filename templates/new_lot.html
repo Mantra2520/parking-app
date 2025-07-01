@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lot</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/new_lot.css') }}">
+    <style>
+ 
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1>New Parking Lot</h1>
+    <form action="/admin/new_lot" method="post">
+        <div class="input-group">
+            <input required type="text" name="lotid" autocomplete="off" class="input">
+            <label class="user-label">Lot ID</label>
+        </div>
+        <div class="input-group">
+            <input type="text" name="prime_location" required autocomplete="off" class="input">
+            <label class="user-label">Prime Location</label>
+        </div>
+        <div class="input-group">
+            <input type="text" name="address" required autocomplete="off" class="input">
+            <label class="user-label">Address</label>
+        </div>
+        <div class="input-group">
+            <input type="text" name="pincode" required autocomplete="off" class="input">
+            <label class="user-label">Pin Code</label>
+        </div>
+        <div class="input-group">
+            <input type="number" name="price" required autocomplete="off" class="input">
+            <label class="user-label">Price</label>
+        </div>
+        <div class="input-group">
+            <input type="number" name="max_spots" required autocomplete="off" class="input">
+            <label class="user-label">Max Spots</label>
+        </div>
+        <div>
+            <input type="submit" value="Add">
+        </div>
+    </form>
+</body>
+
+</html>

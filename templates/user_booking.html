@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+
+<body>
+    <h1>Booking</h1>
+    <div class="form">
+
+        <form action="/user/booking/{{userid}}/{{lotid}}/{{spotid}}" method="post">
+            <div class="input-group">
+                <input type="text" name="lotid" value="{{lotid}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Lot ID</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="spotid" value="{{spotid}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Spot ID</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="userid" value="{{userid}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">User ID</label>
+            </div>
+
+
+            <div class="input-group">
+                <input type="text" name="vno" required placeholder=" " autocomplete="off" class="input">
+                <label class="user-label">Vehicle No.</label>
+            </div>
+
+
+            <div class="input-group">
+                <input type="text" name="Location" value="{{lot.address}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Location</label>
+            </div>
+
+            <div class="input-group">
+                <input type="number" name="cost" value="{{lot.price}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Price (/hour)</label>
+            </div>
+
+            <div>
+                <input type="submit" value="Book">
+            </div>
+    </div>
+    </form>
+    {%if error%}
+    <script>
+        alert("{{error}}")
+    </script>
+    {%endif%}
+</body>
+
+</html>

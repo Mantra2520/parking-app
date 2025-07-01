@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_payment.css') }}">
+</head>
+
+<div class="card">
+  <h2>Booking Summary</h2>
+  <div class="details">
+    <p><strong>Reservation ID:</strong> {{ res.res_id }}</p>
+    <p><strong>Vehicle No:</strong> {{ res.vehicle_no }}</p>
+    <p><strong>Date:</strong> {{ res.in_date }} - {{res.out_date}}</p>
+    <p><strong>Time:</strong> {{ res.in_time.strftime('%H:%M') }} - {{ res.out_time.strftime('%H:%M') }}</p>
+    <p><strong>Duration:</strong> {{ hours | round(2) }} hour(s)</p>
+    <p><strong>Cost:</strong> ₹{{ cost | round(2) }}</p>
+  </div>
+  <form method="POST" action="{{ url_for('userbooking_bp.payment_done', userid=userid, resid=res.res_id) }}">
+    <input type="hidden" name="final_cost" value="{{ cost }}">
+    <button type="submit">Pay ₹{{ cost | round(2) }}</button>
+  </form>
+</div>
+</body>
+
+</html>

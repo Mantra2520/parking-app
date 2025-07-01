@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Search</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_search.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{ url_for('admin_bp.admin_home') }}">Home</a>
+        <a href="{{ url_for('admin_userdata_bp.admin_userdata') }}">Users</a>
+        <a href="{{ url_for('admin_search_bp.admin_search') }}">Search</a>
+        <a href="{{ url_for('admin_summary_bp.admin_summary') }}">Summary</a>
+        <a href="{{ url_for('login_bp.logout') }}">Logout</a>
+    </nav>
+
+    <div class="search-box">
+        <form method="post">
+            <h1>Search</h1>
+            <div class="input-container">
+                <div class="paste-button">
+                    <button type="button" class="button" id="filterButton">Filter ▼</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="setSearchOption('user_id')">User by ID</a>
+                        <a href="#" onclick="setSearchOption('user_name')">User by Name</a>
+                        <a href="#" onclick="setSearchOption('parkinglot__primelocation')">Parking Lot by Prime
+                            Location</a>
+                        <a href="#" onclick="setSearchOption('parkinglot__id')">Parking Lot by Lot ID</a>
+                        <a href="#" onclick="setSearchOption('parkingspot_id')">Parking Spot by Spot ID</a>
+                        <a href="#" onclick="setSearchOption('reservation_id')">Reservation by Reservation ID</a>
+                        <a href="#" onclick="setSearchOption('reservation_userid')">Reservation by User ID</a>
+                        <a href="#" onclick="setSearchOption('reservation_vno')">Reservation by Vehicle No.</a>
+                    </div>
+                </div>
+
+                <input type="hidden" name="search_option" id="search_option">
+
+                <input name="search" placeholder="Enter value..." type="text" required>
+
+                <button type="submit">SEARCH</button>
+            </div>
+
+        </form>
+    </div>
+
+
+    {% if k == 1 %}
+    <h3>No Result</h3>
+    {% else %}
+
+    {% if user %}
+    <h2>User Details</h2>
+    <table>
+        <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Pincode</th>
+        </tr>
+        <tr>
+            <td>{{ user.userid }}</td>
+            <td>{{ user.fullname }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.Address }}</td>
+            <td>{{ user.pincode }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if lot %}
+    <h2>Parking Lot Details</h2>
+    <table>
+        <tr>
+            <th>Lot ID</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Price</th>
+            <th>Max Spots</th>
+        </tr>
+        <tr>
+            <td>{{ lot.lot_id }}</td>
+            <td>{{ lot.prime_location_name }}</td>
+            <td>{{ lot.address }}</td>
+            <td>{{ lot.pin_code }}</td>
+            <td>{{ lot.price }}</td>
+            <td>{{ lot.max_spots }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if spot %}
+    <h2>Parking Spot</h2>
+    <table>
+        <tr>
+            <th>Spot ID</th>
+            <th>Lot ID</th>
+            <th>Status</th>
+        </tr>
+        <tr>
+            <td>{{ spot.spot_id }}</td>
+            <td>{{ spot.lot_id }}</td>
+            <td>{{ "Available" if spot.status == "A" else "Occupied" }}</td>
+        </tr>
+    </table>
+    {% endif %}
+
+    {% if res %}
+    <h2>Reservation Details</h2>
+    <table>
+        <tr>
+            <th>Reservation ID</th>
+            <th>User ID</th>
+            <th>Spot ID</th>
+            <th>Vehicle No</th>
+            <th>Entry Date</th>
+            <th>Exit Date</th>
+            <th>In Time</th>
+            <th>Out Time</th>
+            <th>Cost</th>
+        </tr>
+        {% for r in res %}
+        <tr>
+            <td>{{ r.res_id }}</td>
+            <td>{{ r.user_id }}</td>
+            <td>{{ r.spot_id }}</td>
+            <td>{{ r.vehicle_no }}</td>
+            <td>{{ r.in_date.strftime('%Y-%m-%d') if r.in_date else "N/A" }}</td>
+            <td>{{ r.out_date.strftime('%Y-%m-%d') if r.out_date else "N/A" }}</td>
+            <td>{{ r.in_time.strftime('%H:%M') if r.in_time else "N/A" }}</td>
+            <td>{{ r.out_time.strftime('%H:%M') if r.out_time else "N/A" }}</td>
+            <td>{{ r.cost_unit_time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    {% endif %}
+
+
+
+
+    <script>
+        function setSearchOption(option) {
+            document.getElementById('search_option').value = option;
+        }
+    </script>
+
+    <script>
+        function setSearchOption(value) {
+            document.getElementById("search_option").value = value;
+
+            const labels = {
+                user_id: "User by ID",
+                user_name: "User by Name",
+                parkinglot__primelocation: "Parking Lot by Prime Location",
+                parkinglot__id: "Parking Lot by Lot ID",
+                parkingspot_id: "Parking Spot by Spot ID",
+                reservation_id: "Reservation by Reservation ID",
+                reservation_userid: "Reservation by User ID",
+                reservation_vno: "Reservation by Vehicle No."
+            };
+
+            document.getElementById("filterButton").innerHTML = labels[value] + " ▼";
+        }
+    </script>
+
+
+</body>
+
+</html>

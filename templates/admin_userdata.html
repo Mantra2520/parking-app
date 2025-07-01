@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_userdata.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1>Registered Users</h1>
+    {%if users%}
+    <table>
+        <tr>
+            <th>Sr.No.</th>
+            <th>Full Name</th>
+            <th>User ID</th>
+            <th>E-mail ID</th>
+            <th>Address</th>
+            <th>pincode</th>
+            <th>Total reservation</th>
+            <th>Action</th>
+        </tr>
+        {%for user in users %}
+        <tr>
+            <td>{{loop.index}}</td>
+            <td>{{user.fullname}}</td>
+            <td>{{user.userid}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.Address}}</td>
+            <td>{{user.pincode}}</td>
+            <td>{{res[user.userid]}}</td>
+            <td><a href="{{ url_for('admin_userdata_bp.user_reservations', userid=user.userid) }}">View Reservations</a>
+            </td>
+        </tr>
+        {%endfor%}
+    </table>
+    {%else%}
+    <h3>NO Registered Users</h3>
+    {%endif%}
+</body>
+
+</html>

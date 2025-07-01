@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Successful</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user_payment.css') }}">
+  <script>
+    setTimeout(function () {
+      window.location.href = "{{ url_for('user_bp.user_home', userid=userid) }}";
+    }, 2000);
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="tick-box">
+      <svg class="tick" viewBox="0 0 52 52">
+        <path d="M14 27 l10 10 l20 -20"></path>
+      </svg>
+    </div>
+    <div class="text">Payment Successful</div>
+  </div>
+</body>
+
+</html>

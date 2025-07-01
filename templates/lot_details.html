@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lot Details</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lot_details.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+
+    <div class="parent">
+        <div class="div1">
+            <h2>Parking LOT #{{ lot.lot_id }}</h2>
+        </div>
+        <div class="details-box">
+            <div class="div2">
+                <p><strong>Location:</strong> {{ lot.prime_location_name }}</p>
+                <p><strong>Address:</strong> {{ lot.address }}</p>
+                <p><strong>Pincode:</strong> {{ lot.pin_code }}</p>
+            </div>
+            <div class="vertical-line"></div>
+            <div class="div3">
+                <p><strong>Price/unit time:</strong> ₹{{ lot.price }}</p>
+                <p><strong>Total Spots:</strong> {{ lot.max_spots }}</p>
+                <p><strong>Occupied Spots:</strong> {{ occupied }}</p>
+            </div>
+        </div>
+
+        <div class="div4">
+            <h3> Parking Spots</h3>
+        </div>
+        <div class="div5">
+            {% for i in range(spots|length) %}
+            {%if i>0 and i%13 == 0%}
+            <div class="road-sideline"></div>
+            <div class="road-midline"></div>
+            <div class="road-sideline"></div>
+            {%endif%}
+            <div class="spot {% if spots[i].status == 'O' %}occupied{% else %}available{% endif %}">
+                {%if spots[i].status == 'O'%}
+                <a href="{{url_for('admin_bp.spot_details',spotid=spots[i].spot_id,lotid=lot.lot_id)}}"><img src="{{ url_for('static', filename='images/car-icon.png') }}"
+                        alt="Car" class="car-img"></a>
+
+                {%else%}
+                <p>{{ spots[i].spot_id }}</p>
+                <p>Available</p>
+                {%endif%}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+
+<body>
+    <nav class="nav">
+        <span style="margin-left: -80px;">Wellcome {{userid}}</span>
+        <a href="{{url_for('user_bp.user_home',userid=userid)}}">Home</a>
+        <a href="{{url_for('usersummary_bp.usersummary',userid=userid)}}">Summary</a>
+        <a href="{{url_for('userprofile_bp.userprofile',userid=userid)}}">Edit Profile</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <div class="search">
+        <form method="post">
+            <h1>Search Parking Lot by</h1>
+            <h2>Pincode/Location</h2>
+            <div class="input-container">
+                <input name="search" placeholder="Enter pincode or location..." type="text">
+                <button type="submit" class="button">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <table>
+        {% if sdata %}
+        <tr>
+            <th>LOT ID</th>
+            <th>Location</th>
+            <th>Address</th>
+            <th>Pincode</th>
+            <th>Price</th>
+            <th>Availability</th>
+            <th>Action</th>
+        </tr>
+
+
+        {% for lot in sdata %}
+        <tr>
+            <td>{{ lot.lot_id }}</td>
+            <td>{{ lot.prime_location_name }}</td>
+            <td>{{ lot.address }}</td>
+            <td>{{ lot.pin_code }}</td>
+            <td>{{ lot.price }}</td>
+            {% if lot.available %}
+            <td>Available</td>
+            <td><a href="{{url_for('userbooking_bp.userbooking',userid=userid,lotid=lot.lot_id,spotid=lot.spotid)}}"class="Available">Book</a></td>
+            {% else %}
+            <td>Booked OUT</td>
+            <td><a href="" class="Booked">Not Available</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        {% elif k==1 %}
+        <h4>No Result</h4>
+        {% endif %}
+    </table>
+    <div>
+        <h1 class="above">Recent Parking History</h1>
+        {%if parked or hist%}
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Location</th>
+                <th>Vehicle No.</th>
+                <th>Entry Date</th>
+                <th>Entry Time</th>
+                <th>Exit Date</th>
+                <th>Exit Time</th>
+                <th>Action</th>
+            </tr>
+            {% for i in range(parked|length) %}
+            <tr>
+                <td>{{ parked[i].res_id }}</td>
+                <td>{{ parkeda[i] }}</td>
+                <td>{{ parked[i].vehicle_no }}</td>
+                <td>{{ parked[i].in_date }}</td>
+                <td>{{ parked[i].in_time.strftime('%H:%M') }}</td>
+                <td>{{ parked[i].out_date if parked[i].out_date else "N/A" }}</td>
+                <td>{{ parked[i].out_time if parked[i].out_time else "N/A" }}</td>
+                <td><a class="Release" href="{{url_for('userbooking_bp.userrelease',userid=userid,resid=parked[i].res_id)}}">Release</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if hist %}
+            <tr>
+                <td>{{ hist.res_id }}</td>
+                <td>{{ hista }}</td>
+                <td>{{ hist.vehicle_no }}</td>
+                <td>{{ hist.in_date }}</td>
+                <td>{{ hist.in_time.strftime('%H:%M') }}</td>
+                <td>{{ hist.out_date }}</td>
+                <td>{{ hist.out_time.strftime('%H:%M') }}</td>
+                <td>Parked Out</td>
+            </tr>
+            {% endif %}
+        </table>
+        {%else%}
+        <h4>No Bookings</h4>
+        {%endif%}
+    </div>
+</body>
+
+</html>

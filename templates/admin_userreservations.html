@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>User Reservation Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_userdata.css') }}">
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{ url_for('admin_bp.admin_home') }}">Home</a>
+        <a href="{{ url_for('admin_userdata_bp.admin_userdata') }}">Users</a>
+        <a href="{{ url_for('admin_search_bp.admin_search') }}">Search</a>
+        <a href="{{ url_for('admin_summary_bp.admin_summary') }}">Summary</a>
+        <a href="{{ url_for('login_bp.logout') }}">Logout</a>
+    </nav>
+
+    <h2>Reservations for {{ user.fullname }}</h2>
+    <h4>User ID: {{ user.userid }} | Email: {{ user.email }}</h3>
+
+    {% if reservations %}
+    <table>
+        <tr>
+            <th>Res. ID</th>
+            <th>Spot ID</th>
+            <th>Vehicle No</th>
+            <th>In Date</th>
+            <th>In Time</th>
+            <th>Out Date</th>
+            <th>Out Time</th>
+            <th>Cost/unit</th>
+        </tr>
+        {% for r in reservations %}
+        <tr>
+            <td>{{ r.res_id }}</td>
+            <td>{{ r.spot_id }}</td>
+            <td>{{ r.vehicle_no }}</td>
+            <td>{{ r.in_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ r.in_time.strftime('%H:%M') }}</td>
+            <td>{{ r.out_date.strftime('%Y-%m-%d') if r.out_date else 'N/A' }}</td>
+            <td>{{ r.out_time.strftime('%H:%M') if r.out_time else 'N/A' }}</td>
+            <td>₹{{ r.cost_unit_time }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h3>No Reservation Of the User</h3>
+    {% endif %}
+</body>
+
+</html>

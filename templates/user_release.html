@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Release</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/user.css') }}">
+</head>
+
+<body>
+    <h1>Release Your vehicle</h1>
+    <div class="form">
+
+        <form action="/user/release/{{res.user_id}}/{{res.res_id}}" method="post">
+            <div class="input-group">
+                <input type="text" name="resid" value="{{res.res_id}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Reservation ID</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="spotid" value="{{res.spot_id}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Spot ID</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="userid" value="{{res.user_id}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">User ID</label>
+            </div>
+
+            <div class="input-group">
+                <input type="text" name="vno" value="{{res.vehicle_no}}" disabled placeholder=" " autocomplete="off"
+                    class="input">
+                <label class="user-label">Vehicle No.</label>
+            </div>
+
+
+            <div class="input-group">
+                <input type="number" name="cost" value="{{res.cost_unit_time}}" disabled placeholder=" "
+                    autocomplete="off" class="input">
+                <label class="user-label">Price (/hour)</label>
+            </div>
+
+            <div>
+                <input type="submit" value="Confirm">
+            </div>
+
+        </form>
+    </div>
+</body>
+{% if error %}
+<script>
+    alert("{{ error }}");
+</script>
+{% endif %}
+
+</html>

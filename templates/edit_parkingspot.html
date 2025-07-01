@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit lot</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/nav.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_parkingspot.css') }}">
+
+</head>
+
+<body>
+    <nav>
+        <span>Welcome Admin</span>
+        <a href="{{url_for('admin_bp.admin_home')}}">Home</a>
+        <a href="{{url_for('admin_userdata_bp.admin_userdata')}}">Users</a>
+        <a href="{{url_for('admin_search_bp.admin_search')}}">Search</a>
+        <a href="{{url_for('admin_summary_bp.admin_summary')}}">Summary</a>
+        <a href="{{url_for('login_bp.logout')}}">Logout</a>
+    </nav>
+    <h1>Parking Lot #{{details.lot_id}}</h1>
+    <form action="/admin/edit_parking/{{details.lot_id}}" method="post">
+        <div class="input-group">
+            <input required type="text" name="prime_location" value="{{details.prime_location_name}}" autocomplete="off"
+                class="input">
+            <label class="user-label">Prime Location</label>
+        </div>
+
+        <div class="input-group">
+            <input required type="text" name="address" value="{{details.address}}" autocomplete="off" class="input">
+            <label class="user-label">Address</label>
+        </div>
+
+        <div class="input-group">
+            <input required type="text" name="pincode" value="{{details.pin_code}}" autocomplete="off" class="input">
+            <label class="user-label">Pin code</label>
+        </div>
+
+        <div class="input-group">
+            <input required type="number" name="price" value="{{details.price}}" autocomplete="off" class="input">
+            <label class="user-label">Price per Hour</label>
+        </div>
+
+        <div class="input-group">
+            <input disabled type="number" placeholder=" " name="max_spots" value="{{details.max_spots}}"
+                autocomplete="off" class="input">
+            <label class="user-label">Max Spots</label>
+        </div>
+        <div>
+            <input type="submit" value="Update">
+        </div>
+    </form>
+
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/error.css') }}">
+    <style>
+        
+    </style>
+</head>
+
+<body>
+    <div class="error-box">
+        {% if err == "del" %}
+        <div class="error-img" style="-webkit-mask: url('{{ url_for('static', filename='images/car-parking.png') }}') center/contain no-repeat; mask: url('{{ url_for('static', filename='images/car-parking.png') }}') center/contain no-repeat;"></div>
+        <h1>Cannot delete parking lot</h1>
+        <div class="message">There is a reservation in this lot, so it cannot be deleted.</div>
+        {% elif err == "lotid" %}
+        <div class="error-img" style="-webkit-mask: url('{{ url_for('static', filename='images/warning.png') }}') center/contain no-repeat; mask: url('{{ url_for('static', filename='images/warning.png') }}') center/contain no-repeat;"></div>
+        <h1>Lot creation failed</h1>
+        <div class="message">A parking lot with this ID already exists.</div>
+        {% endif %}
+        <a href="{{ url_for('admin_bp.admin_home') }}">Go Back</a>
+    </div>
+</body>
+
+</html>
